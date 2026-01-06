@@ -1,0 +1,3 @@
+# Ignore all single-letter compiled binaries (a, b, c, ...)
+[a-zA-Z]
+
