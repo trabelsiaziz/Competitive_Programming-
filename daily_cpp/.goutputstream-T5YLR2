@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int ll
+
+using ll = long long;
+using pii = pair<int, int>;
+
+const int N = 2e5 + 20, inf = 2e15 + 20;
+int n, a[N];
+vector <int> g[N];
+
+bool dfs(int v, int val) {
+	if (g[v].empty() && a[v] < val) return false;
+
+	if (!v) val = max(0ll, val - a[v]);
+	else if (a[v] < val) val = min(inf, val + val - a[v]);
+
+	for (int u: g[v]) {
+		if (!dfs(u, val)) return false;
+	}
+
+	return true;
+}
+
+int32_t main() {
+	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
+	int t;
+	cin >> t;
+
+	while (t--) {
+		cin >> n;
+		for (int i = 0; i < n; i++) cin >> a[i];
+		for (int i = 1; i < n; i++) {
+			int par;
+			cin >> par;
+			par--;
+			g[par].push_back(i);
+		}
+
+		int low = 0, high = inf;
+
+		while (high - low > 1) {
+			int mid = (low + high) / 2;
+			if (dfs(0, mid)) low = mid;
+			else high = mid;
+		}
+
+		cout << low << '\n';
+
+		for (int i = 0; i < n; i++) g[i].clear();
+	}
+
+}

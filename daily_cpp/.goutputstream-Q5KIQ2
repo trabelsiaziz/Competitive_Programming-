@@ -1,0 +1,195 @@
+/*
+ * One Day or Day One. You Decide!
+ * The Universe is under no obligation to make sense to you!
+ * Man cannot discover new oceans unless he has the courage 
+   to lose sight of the shore.
+ * Not all those who wander are lost.
+ * 
+ *           وما انتفاعُ أخي الدُّنيا بناظرِه  إذا استَوَت عندَهُ الأنوارُ والظُّلَمُ 
+
+ */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define LOCAL
+#define sim template < class c
+#define ris return * this
+#define dor > debug & operator <<
+#define eni(x) sim > typename \
+  enable_if<sizeof dud<c>(0) x 1, debug&>::type operator<<(c i) {
+sim > struct rge { c b, e; };
+sim > rge<c> range(c i, c j) { return rge<c>{i, j}; }
+sim > auto dud(c* x) -> decltype(cerr << *x, 0);
+sim > char dud(...);
+struct debug {
+#ifdef LOCAL
+~debug() { cerr << endl; }
+eni(!=) cerr << boolalpha << i; ris; }
+eni(==) ris << range(begin(i), end(i)); }
+sim, class b dor(pair < b, c > d) {
+  ris << "(" << d.first << ", " << d.second << ")";
+}
+sim dor(rge<c> d) {
+  *this << "[";
+  for (auto it = d.b; it != d.e; ++it)
+    *this << ", " + 2 * (it == d.b) << *it;
+  ris << "]";
+}
+#else
+sim dor(const c&) { ris; }
+#endif
+};
+#define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
+
+
+#define arr array
+#define ll long long
+#define ld long double
+#define sz(x) ((int)x.size())
+#define all(a) (a).begin(), (a).end()
+#define f first 
+#define s second
+#define pb push_back
+#define mp make_pair
+#define endl '\n' 
+#define NO cout << "NO" << endl
+#define YES cout << "YES" << endl
+#define read(v) for (auto &u : v) cin >> u;
+#define print(v) for (auto u : v) cout << u << ' ';
+
+
+//const int mod = 998244353;
+const int mod = 1e9 + 7;
+const int nax = 2;
+
+vector<int>adj[nax];
+bool vis[nax];
+
+vector<ll> sieve(int n) {
+	int*arr = new int[n + 1](); vector<ll> vect;
+	for (int i = 2; i <= n; i++)if (arr[i] == 0) {
+		vect.push_back(i); 
+		for (int j = 2 * i; j <= n; j += i)
+			arr[j] = 1;
+	}
+	return vect;
+}
+
+
+ll pw(ll a, ll b){
+	if(b == 0) return 1;
+	ll res = 1;
+	for(ll i = 0; i<b ; i++){
+		res *= a;
+	}
+	return res ;
+}
+
+vector<pair<ll,ll>>fac(ll n){
+	vector<pair<ll,ll>>res;
+	if(n%2 == 0){
+		int count = 0;
+		while(n%2==0){
+			count++;
+			n/=2;
+		}
+		res.pb({2,count});
+	}
+	for(ll i = 3; i * i <= n; i+=2){
+		if(n%i == 0){
+			res.pb({i,0});
+			while(n%i == 0){
+				res.back().s++;
+				n/=i;
+			}
+		}
+	}
+	if(n>1) res.pb({n,1});
+	return res;
+}
+
+void dfs(int v){
+	vis[v] = true;
+	for(int u : adj[v]){
+		if(!vis[u]){
+			dfs(u);
+		}
+	}
+}
+
+
+int mex(vector<int> &a) {
+    vector<bool> f(a.size() + 1, 0);
+    for (int i : a) {
+		if (i <= (int) a.size()) {
+			f[i] = 1;
+		}
+	}
+    int mex = 0;
+    while (f[mex]) ++mex;
+    return mex;
+}
+
+string binary(unsigned x)
+{
+    string s;
+    do
+    {
+        s.push_back('0' + (x & 1));
+    } while (x >>= 1);
+    reverse(s.begin(), s.end());
+    return s;
+}
+
+// you should actually read the stuff at the bottom
+void test_case(){
+	//write your code here
+	int n, m, k;
+	string s; 
+	cin >> n >> m >> k;
+	cin >> s; 
+	
+	if(m<1){
+		NO;
+		return; 
+	}
+	int kridi = 0;
+	for(int i = 0; i<n ; i++){
+		if(s[i] == 'L'){
+			
+		}
+		else if(s[i] == 'W' or s[i] == 'C'){
+			kridi++;
+		}
+	}
+	
+	YES;
+}
+ 
+/* stuff you should look for
+	* int overflow, array bounds
+	* special cases (n=1?)
+	* do smth instead of nothing and stay organized
+	* WRITE STUFF DOWN
+	* DON'T GET STUCK ON ONE APPROACH
+	* by REFERENCE or by VALUE that's the question ?!!!!
+	* recursive ??? beware MEMORY LEAK
+*/
+
+
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cout << fixed << setprecision(15);
+    int tc = 1;
+     cin >> tc;
+    for (int t = 1; t <= tc; t++) {
+        // cout << "Case #" << t << ": ";
+        
+        test_case();
+		
+        
+    }
+}

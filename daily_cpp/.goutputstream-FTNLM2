@@ -1,0 +1,108 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define LOCAL
+#define sim template < class c
+#define ris return * this
+#define dor > debug & operator <<
+#define eni(x) sim > typename \
+  enable_if<sizeof dud<c>(0) x 1, debug&>::type operator<<(c i) {
+sim > struct rge { c b, e; };
+sim > rge<c> range(c i, c j) { return rge<c>{i, j}; }
+sim > auto dud(c* x) -> decltype(cerr << *x, 0);
+sim > char dud(...);
+struct debug {
+#ifdef LOCAL
+~debug() { cerr << endl; }
+eni(!=) cerr << boolalpha << i; ris; }
+eni(==) ris << range(begin(i), end(i)); }
+sim, class b dor(pair < b, c > d) {
+  ris << "(" << d.first << ", " << d.second << ")";
+}
+sim dor(rge<c> d) {
+  *this << "[";
+  for (auto it = d.b; it != d.e; ++it)
+    *this << ", " + 2 * (it == d.b) << *it;
+  ris << "]";
+}
+#else
+sim dor(const c&) { ris; }
+#endif
+};
+#define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
+
+
+#define ar array
+#define ll long long
+#define ld long double
+#define sz(x) ((int)x.size())
+#define all(a) (a).begin(), (a).end()
+#define f first 
+#define s second
+#define pb push_back
+#define mp make_pair
+#define endl '\n' 
+
+const int mod = 1e9 + 7;
+const int nax = 1e3;
+
+vector<vector<bool>>vis(nax,vector<bool>(nax,false));
+vector<vector<int>>in(nax,vector<int>(nax));
+
+bool ind(pair<int ,int> p , pair<int ,int> pp, int n, int m){
+	pair<int,int> ppp = {p.f+pp.f , p.s+pp.s};
+	return ppp.s < n && ppp.f >= 0 && ppp.s < m && ppp.s >= 0;
+	
+}
+
+vector<pair<int,int>> a = {{0,-1},{-1,0},{0,1},{1,0}};
+
+ll dfs(int i, int k, int n, int m){
+	vis[i][k] = true;
+	ll res = in[i][k];
+	for(auto h : a){
+		if(ind({i,k} , h , n , m) && in[i+h.f][k+h.s] != 0 && !vis[i+h.f][k+h.s]){
+			res += dfs(i+h.f , k+h.s ,n,m);
+		}
+	}
+	return res;
+}
+
+
+void test_case(){
+	int n,m;
+	cin>>n>>m;
+	for(int i = 0; i<n ; i++){
+		for(int k = 0; k<m; k++){
+			cin>>in[i][k];
+			vis[i][k] = false;
+		}
+	}
+	ll ans = 0;
+	for(int i = 0; i<n ; i++){
+		for(int k = 0; k<m ; k++){
+			if(!vis[i][k] && in[i][k] != 0){
+				ans = max(dfs(i,k,n,m),ans);
+			}
+		}
+	}
+	cout << ans << endl; 
+		
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int tc = 1;
+     cin >> tc;
+    for (int t = 1; t <= tc; t++) {
+        // cout << "Case #" << t << ": ";
+        
+        test_case();
+		
+        
+    }
+    
+}
